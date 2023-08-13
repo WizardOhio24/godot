@@ -3251,11 +3251,12 @@ void GDScriptAnalyzer::reduce_cast(GDScriptParser::CastNode *p_cast) {
 			if (op_type.is_variant() && !op_type.is_hard_type()) {
 				parser->push_warning(p_cast, GDScriptWarning::UNSAFE_CAST, cast_type.to_string());
 			}
-#endif
 		} else {
 			bool valid = false;
+#endif
 			if (op_type.builtin_type == Variant::INT && cast_type.kind == GDScriptParser::DataType::ENUM) {
 				mark_node_unsafe(p_cast);
+#ifdef DEBUG_ENABLED
 				valid = true;
 			} else if (op_type.kind == GDScriptParser::DataType::BUILTIN && cast_type.kind == GDScriptParser::DataType::BUILTIN) {
 				valid = Variant::can_convert(op_type.builtin_type, cast_type.builtin_type);
@@ -3264,7 +3265,8 @@ void GDScriptAnalyzer::reduce_cast(GDScriptParser::CastNode *p_cast) {
 			}
 
 			if (!valid) {
-				push_error(vformat(R"(Invalid cast. Cannot convert from "%s" to "%s".)", op_type.to_string(), cast_type.to_string()), p_cast->cast_type);
+				parser->push_warning(p_cast, GDScriptWarning::INVALID_CAST, op_type.to_string(), cast_type.to_string());
+#endif
 			}
 		}
 	}

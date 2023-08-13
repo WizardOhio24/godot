@@ -67,6 +67,7 @@ public:
 		UNSAFE_PROPERTY_ACCESS, // Property not found in the detected type (but can be in subtypes).
 		UNSAFE_METHOD_ACCESS, // Function not found in the detected type (but can be in subtypes).
 		UNSAFE_CAST, // Cast used in an unknown type.
+		INVALID_CAST, // Cast used is invalid and will return null.
 		UNSAFE_CALL_ARGUMENT, // Function call argument is of a supertype of the required type.
 		UNSAFE_VOID_RETURN, // Function returns void but returned a call to a function that can't be type checked.
 		RETURN_VALUE_DISCARDED, // Function call returns something but the value isn't used.
@@ -114,6 +115,7 @@ public:
 		IGNORE, // UNSAFE_PROPERTY_ACCESS // Too common in untyped scenarios.
 		IGNORE, // UNSAFE_METHOD_ACCESS // Too common in untyped scenarios.
 		IGNORE, // UNSAFE_CAST // Too common in untyped scenarios.
+		WARN, // INVALID_CAST
 		IGNORE, // UNSAFE_CALL_ARGUMENT // Too common in untyped scenarios.
 		WARN, // UNSAFE_VOID_RETURN
 		IGNORE, // RETURN_VALUE_DISCARDED // Too spammy by default on common cases (connect, Tween, etc.).

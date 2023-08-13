@@ -97,6 +97,9 @@ String GDScriptWarning::get_message() const {
 		case UNSAFE_CAST:
 			CHECK_SYMBOLS(1);
 			return vformat(R"(The value is cast to "%s" but has an unknown type.)", symbols[0]);
+		case INVALID_CAST:
+			CHECK_SYMBOLS(2);
+			return vformat(R"(Invalid cast from "%s" to "%s".)", symbols[0], symbols[1]);
 		case UNSAFE_CALL_ARGUMENT:
 			CHECK_SYMBOLS(4);
 			return vformat(R"*(The argument %s of the function "%s()" requires a the subtype "%s" but the supertype "%s" was provided.)*", symbols[0], symbols[1], symbols[2], symbols[3]);
@@ -203,6 +206,7 @@ String GDScriptWarning::get_name_from_code(Code p_code) {
 		"UNSAFE_PROPERTY_ACCESS",
 		"UNSAFE_METHOD_ACCESS",
 		"UNSAFE_CAST",
+		"INVALID_CAST",
 		"UNSAFE_CALL_ARGUMENT",
 		"UNSAFE_VOID_RETURN",
 		"RETURN_VALUE_DISCARDED",
